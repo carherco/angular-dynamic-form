@@ -1,8 +1,9 @@
-import { Injectable }       from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { DropdownQuestion } from './question-dropdown';
-import { QuestionBase }     from './question-base';
-import { TextboxQuestion }  from './question-textbox';
+import { QuestionBase } from './question-base';
+import { TextboxQuestion } from './question-textbox';
+import { CheckboxQuestion } from 'app/question-checkbox';
 
 @Injectable()
 export class QuestionService {
@@ -11,18 +12,17 @@ export class QuestionService {
   // Todo: make asynchronous
   getQuestions() {
 
-    let questions: QuestionBase<any>[] = [
+    const questions: QuestionBase<any>[] = [
 
       new DropdownQuestion({
         key: 'brave',
         label: 'Bravery Rating',
         options: [
-          {key: 'solid',  value: 'Solid'},
-          {key: 'great',  value: 'Great'},
-          {key: 'good',   value: 'Good'},
-          {key: 'unproven', value: 'Unproven'}
-        ],
-        order: 3
+          {key: 'solid',  value: 'Solid', price: 50},
+          {key: 'great',  value: 'Great', price: 60},
+          {key: 'good',   value: 'Good', price: 70},
+          {key: 'unproven', value: 'Unproven', price: 80}
+        ]
       }),
 
       new TextboxQuestion({
@@ -30,18 +30,28 @@ export class QuestionService {
         label: 'First name',
         value: 'Bombasto',
         required: true,
-        order: 1
+        price: 47
+      }),
+
+      new CheckboxQuestion({
+        key: 'registroUsuarios',
+        label: 'Registro de usuarios',
+        value: false,
+        required: false,
+        price: 155
       }),
 
       new TextboxQuestion({
         key: 'emailAddress',
         label: 'Email',
         type: 'email',
-        order: 2
+        price: 50
       })
     ];
 
-    return questions.sort((a, b) => a.order - b.order);
+    console.log(questions);
+
+    return questions;
   }
 }
 
